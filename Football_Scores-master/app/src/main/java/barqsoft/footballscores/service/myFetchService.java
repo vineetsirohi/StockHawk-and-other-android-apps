@@ -1,15 +1,15 @@
 package barqsoft.footballscores.service;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -90,7 +90,7 @@ public class myFetchService extends IntentService
         }
         catch (Exception e)
         {
-            Log.e(LOG_TAG,"Exception here" + e.getMessage());
+            Log.e(LOG_TAG,"Exception here " + e.getMessage());
         }
         finally {
             if(m_connection != null)
