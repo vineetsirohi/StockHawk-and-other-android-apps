@@ -1,5 +1,11 @@
 package com.sam_chordas.android.stockhawk.rest;
 
+import com.sam_chordas.android.stockhawk.R;
+import com.sam_chordas.android.stockhawk.data.QuoteColumns;
+import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperAdapter;
+import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperViewHolder;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -10,12 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.sam_chordas.android.stockhawk.R;
-import com.sam_chordas.android.stockhawk.data.QuoteColumns;
-import com.sam_chordas.android.stockhawk.data.QuoteProvider;
-import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperAdapter;
-import com.sam_chordas.android.stockhawk.touch_helper.ItemTouchHelperViewHolder;
 
 /**
  * Created by sam_chordas on 10/6/15.
@@ -75,12 +75,17 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
   }
 
   @Override public void onItemDismiss(int position) {
-    Cursor c = getCursor();
-    c.moveToPosition(position);
-    String symbol = c.getString(c.getColumnIndex(QuoteColumns.SYMBOL));
+    String symbol = getStockSymbol(position);
     mContext.getContentResolver().delete(QuoteProvider.Quotes.withSymbol(symbol), null, null);
     notifyItemRemoved(position);
   }
+
+  public String getStockSymbol(int position) {
+    Cursor c = getCursor();
+    c.moveToPosition(position);
+    return c.getString(c.getColumnIndex(QuoteColumns.SYMBOL));
+  }
+
 
   @Override public int getItemCount() {
     return super.getItemCount();
@@ -113,5 +118,6 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
     public void onClick(View v) {
 
     }
+
   }
 }

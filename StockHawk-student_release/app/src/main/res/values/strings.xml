@@ -12,4 +12,8 @@
   <string name="widget_title">Today\'s Market</string>
   <string name="network_toast">Uh-oh! This app requires an internet connection</string>
   <string name="action_button_description">Add Stock</string>
+  <string name="stock_does_not_exist">" stock does not exist!"</string>
+  <string name="install_web_browser_prompt">Please install a web browser app to see stocks value
+    graph.
+  </string>
 </resources>

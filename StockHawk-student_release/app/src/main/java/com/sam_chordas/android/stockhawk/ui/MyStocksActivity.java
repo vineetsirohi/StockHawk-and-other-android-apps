@@ -26,6 +26,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
@@ -76,7 +77,8 @@ public class MyStocksActivity extends AppCompatActivity
                 if (isStockNonExistent) {
                     Toast.makeText(context,
                             intent.getStringExtra(StockTaskService.EXTRA_PARAM_STOCK_NAME)
-                                    + " stock does not exist!", Toast.LENGTH_SHORT).show();
+                                    + getString(R.string.stock_does_not_exist), Toast.LENGTH_SHORT)
+                            .show();
                 }
             }
         }
@@ -115,8 +117,17 @@ public class MyStocksActivity extends AppCompatActivity
                 new RecyclerViewItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
-                        //TODO:
-                        // do something on item click
+                        Uri webpage = Uri
+                                .parse("http://finance.yahoo.com/echarts?s=" + mCursorAdapter
+                                        .getStockSymbol(position));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(MyStocksActivity.this,
+                                    R.string.install_web_browser_prompt,
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }));
         recyclerView.setAdapter(mCursorAdapter);
