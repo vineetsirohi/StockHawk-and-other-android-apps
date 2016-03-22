@@ -94,9 +94,9 @@ public class QuoteWidgetRemoteViewsService extends RemoteViewsService {
                     R.layout.list_item_quote);
 
             if (mCursor.moveToPosition(position)) {
-                remoteView.setTextViewText(R.id.stock_symbol, mCursor.getString(COL_STOCK_SYMBOL));
-                remoteView.setTextViewText(R.id.bid_price, mCursor.getString(COL_BID_PRICE));
-                remoteView.setTextViewText(R.id.change, mCursor.getString(COL_CHANGE));
+                remoteView.setTextViewText(R.id.stock_symbol, mCursor.getString(mCursor.getColumnIndex("symbol")));
+                remoteView.setTextViewText(R.id.bid_price, mCursor.getString(mCursor.getColumnIndex("bid_price")));
+                remoteView.setTextViewText(R.id.change, mCursor.getString(mCursor.getColumnIndex("percent_change")));
 
             }
 
